@@ -1,7 +1,7 @@
-const twoSum = (nums: number[], target: number) => {
-  for (let i = 0; i < nums.length; i++) {
-    for (let j = 1; j < nums.length; j++) {
-      if (nums[i] + nums[j] === target) {
+const twoSum = (numbers: number[], target: number): number[] => {
+  for (let i = 0; i < numbers.length; i++) {
+    for (let j = 1; j < numbers.length; j++) {
+      if (numbers[i] + numbers[j] === target) {
         return [i, j];
       }
     }

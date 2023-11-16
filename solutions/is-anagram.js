@@ -1,54 +1,40 @@
 /**
+ * @param {string} str
+ * @return {object}
+ */
+
+const generateDictFromString = (str) => {
+    const dict = {}
+    
+    for (const char of str) {
+        dict[char] = dict[char] ? dict[char] + 1 : 1
+    }
+    
+    return dict
+}
+
+/**
  * @param {string} s
  * @param {string} t
  * @return {boolean}
  */
-
-const reorder = (str) =>
-  str
-    .split("")
-    .sort((a, b) => a.localeCompare(b))
-    .join("");
-
 const isAnagram = (s, t) => {
-  if (s.length !== t.length) return false;
-
-  return reorder(s) === reorder(t);
+    if (!s || !t || s.length !== t.length) return false
+    
+    const sDict = generateDictFromString(s)
+    const tDict = generateDictFromString(t)
+    
+    return Object.entries(sDict).every(([key, value]) => tDict[key] === value)
 };
 
-const isAnagram2 = (s, t, map = new Map()) => {
-  const isEqual = s.length === t.length;
-  if (!isEqual) return false;
+console.log('"anagram", "naragma"', isAnagram("anagram", "naragma")) // true
+console.log('"a", "ab"', isAnagram("a", "ab")) // false
+console.log('"ba", "ab"', isAnagram("ba", "ab")) // true
+console.log('"", ""', isAnagram("", "")) // false
+console.log('"", "ab"', isAnagram("", "ab")) // false
+console.log('"a", ""', isAnagram("a", "")) // false
+console.log('"bar", "car"', isAnagram("bar", "car")) //false
+console.log('"var", "rav"', isAnagram("var", "rav")) // true
+console.log('"varv", "rav"', isAnagram("varv", "rav")) // false
+console.log(isAnagram()) // false
 
-  addFrequency(s, map);
-  subtractFrequency(t, map);
-
-  return checkFrequency(map);
-};
-
-const addFrequency = (str, map) => {
-  for (const char of str) {
-    const count = (map.get(char) || 0) + 1;
-
-    map.set(char, count);
-  }
-};
-
-const subtractFrequency = (str, map) => {
-  for (const char of str) {
-    if (!map.has(char)) continue;
-
-    const count = map.get(char) - 1;
-
-    map.set(char, count);
-  }
-};
-
-const checkFrequency = (map) => {
-  for (const [char, count] of map) {
-    const isEmpty = count === 0;
-    if (!isEmpty) return false;
-  }
-
-  return true;
-};

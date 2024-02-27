@@ -16,6 +16,16 @@ const findVowels = (str) => {
     return count;
 }
 
+/**
+ * @param {string} str
+ * @return {number}
+ */
 
-console.log(findVowels('hello'))
-console.log(findVowels('why'))
+const findVowelsWithRegex = (str) => {
+    const matches = str.toLocaleLowerCase().match(/[aeiou]/gi)
+    return matches ? matches.length : 0
+}
+
+
+console.log(findVowelsWithRegex('hello'))
+console.log(findVowelsWithRegex('why'))
